@@ -44,6 +44,15 @@ public class TextViewHooker {
                 return false;
             }
         });
+        thiz.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                int heightDiff = thiz.getRootView().getHeight() - thiz.getHeight();
+                if (heightDiff > 100) {
+                    Log.e("TextViewHooker", String.valueOf(thiz.getText()));
+                }
+            }
+        });
         SandHook.callOriginByBackup(handleTextChangedBackup, thiz, buffer, start, before, after);
     }
 }
